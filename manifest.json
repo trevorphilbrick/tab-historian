@@ -4,7 +4,10 @@
   "version": "1.0",
   "description": "Track and group browser tabs into sessions with auto-generated labels.",
   "permissions": ["tabs", "storage", "scripting"],
-  "host_permissions": ["https://api.openai.com/*"],
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },

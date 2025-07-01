@@ -56,10 +56,107 @@
         font-weight: bold;
       }
 
+      .button:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .button.loading {
+        position: relative;
+        color: transparent;
+      }
+
+      .button.loading::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        left: 50%;
+        margin-left: -8px;
+        margin-top: -8px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
       .button-container {
         display: flex;
         gap: 8px;
         margin-top: 12px;
+      }
+
+      .container {
+        border: 1px solid #c4c4c4;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: blue;
+      }
+
+      .settings-section {
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+      }
+
+      .api-key-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .api-key-container label {
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .api-key-container input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .status-message {
+        font-size: 12px;
+        margin-top: 4px;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .status-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .status-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .empty-message {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-style: italic;
+        background-color: #f8f9fa;
+        border: 1px dashed #dee2e6;
+        border-radius: 6px;
+        margin: 10px 0;
       }
 
       @media (prefers-color-scheme: dark) {
@@ -67,14 +164,59 @@
           background-color: #121212;
           color: #ffffff;
         }
+
+        .settings-section {
+          background-color: #2d2d2d;
+          border-color: #444;
+        }
+
+        .api-key-container input {
+          background-color: #3d3d3d;
+          border-color: #555;
+          color: #ffffff;
+        }
+
+        .status-success {
+          background-color: #1e4d2b;
+          color: #d4edda;
+          border-color: #2d5a3d;
+        }
+
+        .status-error {
+          background-color: #4d1e1e;
+          color: #f8d7da;
+          border-color: #5a2d2d;
+        }
+
+        .empty-message {
+          background-color: #2d2d2d;
+          color: #aaa;
+          border-color: #444;
+        }
       }
     </style>
   </head>
   <body>
-    <h2>Current Session</h2>
+    <div class="settings-section">
+      <h2>Settings</h2>
+      <div class="api-key-container">
+        <label for="geminiApiKey">Gemini API Key:</label>
+        <input
+          type="password"
+          id="geminiApiKey"
+          placeholder="Enter your Gemini API key"
+        />
+        <button id="saveApiKey" class="reset-Button button">
+          Save API Key
+        </button>
+      </div>
+      <div id="apiKeyStatus" class="status-message"></div>
+    </div>
+
+    <h1>Current Session</h1>
     <ul id="tabList" class="tab-list"></ul>
     <button id="archiveBtn" class="reset-Button button">Archive Session</button>
-    <h3>Archived Sessions</h3>
+    <h2>Archived Sessions</h2>
     <ul id="archiveList" class="tab-list"></ul>
     <div id="sessionDetails"></div>
     <script src="popup.js"></script>

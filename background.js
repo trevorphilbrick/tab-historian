@@ -4,34 +4,40 @@ chrome.runtime.onInstalled.addListener(() => {
 
 let sessionTabs = [];
 
+const API_KEY = "AIzaSyD4VS3KjMQBL9tNf_WKk72TqFzMG0_cJgQ";
+
 async function generateSessionNameFromOpenAI(tabs) {
   const tabTitles = tabs.map((tab) => tab.title).join("; ");
-  const prompt = `Give a short, descriptive name for a browser session based on these tab titles: ${tabTitles}`;
+  const prompt = `Give a short, descriptive name for a browser session based on these tab titles: ${tabTitles}. Don't return any other text except the name. It can be funny.`;
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer <token>",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are a helpful assistant that summarizes browsing sessions.",
-          },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.7,
-        max_tokens: 20,
-      }),
-    });
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": API_KEY,
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: prompt,
+                },
+              ],
+            },
+          ],
+        }),
+      }
+    );
 
     const data = await response.json();
-    const name = data.choices?.[0]?.message?.content?.trim();
+    console.log(data);
+    console.log(data.candidates[0].content.parts);
+    const name = data.candidates[0].content.parts[0].text;
+    console.log(name);
     return name || "Unnamed Session";
   } catch (err) {
     console.error("Failed to generate name from OpenAI:", err);
