@@ -3,11 +3,8 @@
   "name": "Tab Historian",
   "version": "1.0",
   "description": "Track and group browser tabs into sessions with auto-generated labels.",
-  "permissions": ["tabs", "storage", "scripting"],
-  "host_permissions": [
-    "https://api.openai.com/*",
-    "https://generativelanguage.googleapis.com/*"
-  ],
+  "permissions": ["tabs", "storage"],
+  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
   "background": {
     "service_worker": "background.js"
   },
