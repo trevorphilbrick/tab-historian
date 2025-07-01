@@ -6,7 +6,7 @@ let sessionTabs = [];
 
 async function generateSessionNameFromOpenAI(tabs) {
   const tabTitles = tabs.map((tab) => tab.title).join("; ");
-  const prompt = `Give a short, descriptive name for a browser session based on these tab titles: ${tabTitles}. Don't return any other text except the name. It can be funny.`;
+  const prompt = `Give a short, descriptive name for a browser session based on these tab titles: ${tabTitles}. Don't return any other text except the name. It can be funny!`;
 
   try {
     const response = await fetch(
