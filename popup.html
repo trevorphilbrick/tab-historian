@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tab Historian</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 16px;
+        width: 400px;
+      }
+
+      .reset-Button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+
+        background: transparent;
+
+        /* inherit font & color from ancestor */
+        color: inherit;
+        font: inherit;
+
+        /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+        line-height: normal;
+
+        /* Corrects font smoothing for webkit */
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+
+        /* Corrects inability to style clickable `input` types in iOS */
+        -webkit-appearance: none;
+      }
+      .tab-list {
+        list-style: none;
+        padding: 0;
+      }
+      .tab-item {
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+      .tab-details {
+        margin-left: 10px;
+        font-size: 0.9em;
+        color: #555;
+      }
+      .button {
+        border-radius: 4px;
+        background-color: cornflowerblue;
+        color: #e6e6e6;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .button-container {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #121212;
+          color: #ffffff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Current Session</h2>
+    <ul id="tabList" class="tab-list"></ul>
+    <button id="archiveBtn" class="reset-Button button">Archive Session</button>
+    <h3>Archived Sessions</h3>
+    <ul id="archiveList" class="tab-list"></ul>
+    <div id="sessionDetails"></div>
+    <script src="popup.js"></script>
+  </body>
+</html>
